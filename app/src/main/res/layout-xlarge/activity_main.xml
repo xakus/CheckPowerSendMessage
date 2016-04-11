@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1"
-    tools:context="power.BattManager"
-    android:background="@color/myCOLOR">
+    android:weightSum="1">
 
     <TextView
         android:id="@+id/text"
@@ -20,11 +17,10 @@
 
     <ImageView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:id="@+id/imageView"
+        android:layout_weight="1"
         android:src="@drawable/on"
-        android:background="@color/myCOLOR"
-        android:contentDescription="@string/Light"
-        android:layout_weight="1" />
-
+        android:contentDescription=""
+        android:background="@color/myCOLOR" />
 </LinearLayout>

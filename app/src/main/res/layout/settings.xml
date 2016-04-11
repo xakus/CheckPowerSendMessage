@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/myCOLOR"
+    tools:context="power.Settings">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/PhoneTXT"
+                    android:id="@+id/textView"
+                    android:textColor="@color/myTextColor"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:layout_gravity="right"
+                    android:gravity="bottom|right" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:inputType="phone"
+                    android:ems="10"
+                    android:id="@+id/editTextPhoneNumber"
+                    android:textColor="@color/myTextColor"
+                    android:singleLine="true"
+                    android:textStyle="bold|normal"
+                    android:textIsSelectable="false"
+                    android:editable="false"
+                    android:clickable="true"
+                    android:selectAllOnFocus="true"
+                    android:phoneNumber="true"
+                    android:enabled="true"
+                    android:autoText="false"
+                    android:text="123456541"
+                    android:layout_gravity="left"
+                    android:gravity="left|top"
+                    android:textSize="20dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/Wait"
+                    android:id="@+id/textViewWait"
+                    android:textColor="@color/myTextColor"
+                    android:layout_gravity="right"
+                    android:textStyle="bold"
+                    android:gravity="end"
+                    android:textSize="20dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:id="@+id/editTextSeconds"
+                    android:textColor="@color/myTextColor"
+                    android:singleLine="true"
+                    android:textStyle="bold|normal"
+                    android:textIsSelectable="false"
+                    android:editable="false"
+                    android:clickable="true"
+                    android:selectAllOnFocus="true"
+                    android:phoneNumber="false"
+                    android:enabled="true"
+                    android:autoText="false"
+                    android:text="0"
+                    android:layout_gravity="left"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:textSize="20dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:id="@+id/editText4"
+                    android:textColor="@color/myTextColor"
+                    android:singleLine="false"
+                    android:textStyle="italic"
+                    android:textIsSelectable="false"
+                    android:editable="false"
+                    android:clickable="false"
+                    android:selectAllOnFocus="false"
+                    android:phoneNumber="false"
+                    android:enabled="false"
+                    android:autoText="false"
+                    android:text="sec"
+                    android:gravity="center"
+                    android:textSize="20dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/SMSTXT"
+                android:id="@+id/textView2"
+                android:textColor="@color/myTextColor"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:singleLine="true"
+                android:layout_gravity="top"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="30"
+            android:gravity="center_vertical">
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/editTextSMSText"
+                android:textColor="@color/myTextColor"
+                android:background="#505050"
+                android:layout_weight="1"
+                android:singleLine="true"
+                android:gravity="left|top"
+                android:textStyle="bold|normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/button"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/myButtonCOLOR"
+                android:textColor="@color/myTextColor"
+                android:onClick="okClick"
+                android:text="@string/Apply"
+                android:layout_weight="1" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Cancel"
+                android:id="@+id/button2"
+                android:textColor="@color/myTextColor"
+                android:background="@color/myButtonCOLOR"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+    </TableLayout>
+
+</LinearLayout>
