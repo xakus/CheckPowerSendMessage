@@ -18,6 +18,15 @@
         android:textIsSelectable="false"
         android:gravity="center" />
 
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:id="@+id/textTime"
+        android:layout_gravity="right"
+        android:textColor="@color/myTextColor"
+        android:gravity="center" />
+
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
