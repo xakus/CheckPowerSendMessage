@@ -10,6 +10,10 @@ import android.telephony.TelephonyManager;
 
 public class TS {
 
+    public  static final String PHONE_NUMBER="phonenumber";
+    public  static final String WAIT="wait";
+    public  static final String SMS_TEXT="smstext";
+    public  static final String SETTINGS="settings";
     public static String callState (Integer state) {
         switch (state) {
             case TelephonyManager.CALL_STATE_IDLE:

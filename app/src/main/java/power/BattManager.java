@@ -55,7 +55,11 @@ public class BattManager extends AppCompatActivity {
                 }
             }
         };
-        registerReceiver(receiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        try {
+            registerReceiver(receiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        }catch (Exception e){
+
+        }
     }
 
     public void settingsClick(View view) {

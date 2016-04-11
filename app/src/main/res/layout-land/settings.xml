@@ -195,10 +195,10 @@
             android:layout_weight="1">
 
             <Button
-                android:layout_width="117dp"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/button"
-                android:layout_gravity="center_horizontal|left"
+                android:layout_gravity="center_horizontal"
                 android:background="@color/myButtonCOLOR"
                 android:textColor="@color/myTextColor"
                 android:onClick="okClick"
@@ -206,14 +206,14 @@
                 android:layout_weight="1" />
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/Cancel"
                 android:id="@+id/button2"
                 android:textColor="@color/myTextColor"
                 android:background="@color/myButtonCOLOR"
-                android:layout_gravity="right"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:onClick="cancelClick" />
         </LinearLayout>
 
     </TableLayout>

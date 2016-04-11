@@ -212,7 +212,8 @@
                 android:id="@+id/button2"
                 android:textColor="@color/myTextColor"
                 android:background="@color/myButtonCOLOR"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:onClick="cancelClick" />
         </LinearLayout>
 
     </TableLayout>
