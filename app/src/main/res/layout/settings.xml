@@ -57,7 +57,7 @@
                     android:phoneNumber="true"
                     android:enabled="true"
                     android:autoText="false"
-                    android:text="123456541"
+                    android:text="0"
                     android:layout_gravity="left"
                     android:gravity="left|top"
                     android:textSize="20dp" />
@@ -115,7 +115,9 @@
                     android:layout_gravity="left"
                     android:gravity="center"
                     android:inputType="number"
-                    android:textSize="20dp" />
+                    android:textSize="20dp"
+                    android:maxLength="6"
+                    android:numeric="integer" />
             </LinearLayout>
 
             <LinearLayout
@@ -182,10 +184,11 @@
                 android:id="@+id/editTextSMSText"
                 android:textColor="@color/myTextColor"
                 android:background="#505050"
-                android:layout_weight="1"
+                android:layout_weight="0"
                 android:singleLine="true"
                 android:gravity="left|top"
-                android:textStyle="bold|normal" />
+                android:textStyle="bold|normal"
+                android:text="0" />
         </LinearLayout>
 
         <LinearLayout

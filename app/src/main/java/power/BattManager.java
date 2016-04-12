@@ -5,27 +5,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
+import android.content.pm.ActivityInfo;
+import android.graphics.BitmapFactory;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.xakus.checkpowersendmessage.AboutActivity;
 import com.example.xakus.checkpowersendmessage.R;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.Timer;
 import java.util.TimerTask;
-
-import power.TS;
 
 /**
  * Created by xakus on 07.04.2016.
@@ -34,13 +28,16 @@ public class BattManager extends AppCompatActivity {
     TextView mText;
     TextView timeText;
     ImageView imageView;
-    Timer timer = null;
+
     private SharedPreferences mSettings;
     private String phoneNumber = "";
     private String smsText = "";
     protected String wait = "";
     private int waitTime = 1000;
     private boolean send = false;
+    private  boolean isRunning=false;
+    private boolean isSended=false;
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -60,55 +57,64 @@ public class BattManager extends AppCompatActivity {
         getSettings();
         timer();
     }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        // store the data in the fragment
+         mText.destroyDrawingCache();
+        timeText.destroyDrawingCache();
+         imageView.destroyDrawingCache();
+
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
+
+
+
         mText = (TextView) this.findViewById(R.id.text);
         timeText = (TextView) this.findViewById(R.id.textTime);
         imageView = (ImageView) this.findViewById(R.id.imageView);
-        mText.setText("Hello XAKUS!!!");
 
+        if(TS.imageOn==null) {
+            TS.imageOn = BitmapFactory.decodeResource(this.getResources(), R.drawable.on);
+        }
+        if(TS.imageOff==null) {
+            TS.imageOff = BitmapFactory.decodeResource(this.getResources(), R.drawable.off);
+        }
         BroadcastReceiver receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 mText.setText("");
-                mText.append("\nMax scale: " + intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1));
-                mText.append("\nCurrent scale: " + intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1));
-                mText.append("\nTemperature: " + intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1));
-                mText.append("\nVoltage: " + intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1));
-                mText.append("\nTechnology: " + intent.getStringExtra(BatteryManager.EXTRA_TECHNOLOGY));
-                mText.append("\nHealth: " + TS.batteryHealth(intent.getIntExtra(BatteryManager.EXTRA_HEALTH, -1)));
                 mText.append("\nStatus: " + TS.batteryStatus(intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1)));
                 mText.append("\nPlugged: " + TS.batteryPlugged(intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)));
                 mText.append("\nWait: " + wait + "sec");
                 mText.append("\nPhone number: " + phoneNumber + "");
                 if (TS.batteryPlugged(intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)).equals("UNDEFINED")) {
-                    mText.append("\n:(");
-                    imageView.setImageResource(R.drawable.off);
+                    imageView.setImageBitmap(TS.imageOff);
                     send = true;
+
                 } else {
                     waitTime = Integer.parseInt(wait);
                     send = false;
-                    mText.append("\n:)");
-                    imageView.setImageResource(R.drawable.on);
+                    isRunning=true;
+                    imageView.setImageBitmap(TS.imageOn);
                 }
             }
         };
         try {
             registerReceiver(receiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         } catch (Exception e) {
-
+               e.getMessage();
         }
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        //client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    public void settingsClick(View view) {
-        setContentView(R.layout.settings);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -146,12 +152,17 @@ public class BattManager extends AppCompatActivity {
     }
 
     private void timer() {
+        txt();
 
-
-        if (timer == null) {
-            timer = new Timer();
-            timer.schedule(new UpdateTimeTask(), 0, 1000); //тикаем каждую секунду без задержки
+        if (TS.timer == null) {
+            TS.timer = new Timer();
+            TS.timer.schedule(new UpdateTimeTask(), 0, 1000);
         }
+
+
+
+
+
 
 
     }
@@ -166,67 +177,71 @@ public class BattManager extends AppCompatActivity {
             smsText = (mSettings.getString(TS.SMS_TEXT, ""));
         }
         if (mSettings.contains(TS.WAIT)) {
-            wait = (mSettings.getString(TS.WAIT, ""));
+            wait = (mSettings.getString(TS.WAIT, "0"));
         }
-        waitTime = Integer.parseInt(wait);
+        if (phoneNumber == null) {
+            phoneNumber = "0";
+
+        } else if (phoneNumber == "") {
+            phoneNumber = "0";
+        }
+        if (smsText == null) {
+            smsText = "0";
+
+        } else if (smsText == "") {
+            smsText = "0";
+        }
+
+        if (wait == null) {
+            wait = "0";
+
+        } else if (wait == "") {
+            wait = "0";
+        }
+if(!send) {
+    waitTime = Integer.parseInt(wait);
+}
         ////
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onBackPressed() {
+        super.onBackPressed();
+        send=false;
+        isRunning=false;
+        android.os.Process.killProcess(android.os.Process.myPid());
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "BattManager Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://power/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client, viewAction);
+
     }
+private  void send(){
+    SendSMS.sendSMSMessage(this,phoneNumber,smsText);
 
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "BattManager Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://power/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(client, viewAction);
-        client.disconnect();
-    }
-
+}
     private class UpdateTimeTask extends TimerTask {
         @Override
         public void run() {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (send) {
+                    if (send&&isRunning) {
                         if (waitTime > 0) {
                             waitTime -= 1;
                         }
                     }
+                    if(waitTime==0&&send&&isRunning){
+                        isRunning=false;
+                        send=false;
+                        timeText.setText("");
+                      send();
+                        timeText.append("send SMS!!!");
+                    }else if(isRunning) {
                     txt();
+                    }
                 }
             });
 
         }
     }
+
+
 }
