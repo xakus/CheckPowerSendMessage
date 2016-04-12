@@ -3,15 +3,17 @@
     package="com.example.xakus.checkpowersendmessage">
 
     <uses-permission android:name="android.permission.SEND_SMS" />
-
+    <uses-permission android:name="android.permission.BATTERY_STATS"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:screenOrientation="portrait">
 
-        <activity android:name="power.BattManager">
+        <activity android:name="power.BattManager"
+                   android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,8 +22,10 @@
         </activity>
         <activity
             android:name="power.Settings"
-            android:label="Settings"></activity>
-        <activity android:name=".AboutActivity"></activity>
+            android:label="Settings" android:screenOrientation="portrait"></activity>
+        <activity android:name="power.AboutActivity"
+                  android:label="@string/About" android:screenOrientation="portrait"
+                  ></activity>
         <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
              App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data

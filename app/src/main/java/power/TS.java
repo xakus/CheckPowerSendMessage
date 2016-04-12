@@ -5,8 +5,14 @@ package power;
  */
 
 
+import android.graphics.Bitmap;
 import android.os.BatteryManager;
 import android.telephony.TelephonyManager;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class TS {
 
@@ -14,6 +20,13 @@ public class TS {
     public  static final String WAIT="wait";
     public  static final String SMS_TEXT="smstext";
     public  static final String SETTINGS="settings";
+    public static Bitmap imageOn=null;
+    public static Bitmap imageOff=null;
+    public static  TextView mText;
+    public static  TextView timeText;
+    public static ImageView imageView;
+    public static  Timer timer = null;
+    public static TimerTask updateTimeTask =null;
     public static String callState (Integer state) {
         switch (state) {
             case TelephonyManager.CALL_STATE_IDLE:

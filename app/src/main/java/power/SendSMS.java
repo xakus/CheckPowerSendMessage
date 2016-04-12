@@ -8,10 +8,9 @@ import android.app.Activity;
  */
 public class SendSMS extends Activity {
 
-    public  void sendSMSMessage(Activity activity ) {
+    public static   void sendSMSMessage(Activity activity,String phoneNo,String message) {
         Log.i("Send SMS", "");
-        String phoneNo = "+994507758340";
-        String message ="Salam Мурад";
+
 
         try {
             SmsManager smsManager = SmsManager.getDefault();
