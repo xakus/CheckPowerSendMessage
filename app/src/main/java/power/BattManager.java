@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,14 +31,16 @@ public class BattManager extends AppCompatActivity {
     ImageView imageView;
 
     private SharedPreferences mSettings;
-    private String phoneNumber = "";
+    private String phoneNumber1 = "";
+    private String phoneNumber2 = "";
     private String smsText = "";
     protected String wait = "";
     private int waitTime = 1000;
     private boolean send = false;
     private  boolean isRunning=false;
     private boolean isSended=false;
-
+    private boolean ch1;
+    private boolean ch2;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -92,7 +95,17 @@ public class BattManager extends AppCompatActivity {
                 mText.append("\nStatus: " + TS.batteryStatus(intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1)));
                 mText.append("\nPlugged: " + TS.batteryPlugged(intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)));
                 mText.append("\nWait: " + wait + "sec");
-                mText.append("\nPhone number: " + phoneNumber + "");
+                if(ch1) {
+                    mText.append("\nPhone number1: " + phoneNumber1 + " will send");
+                }else {
+                    mText.append("\nPhone number1: " + phoneNumber1 + " won't send");
+                }
+                if(ch2){
+                    mText.append("\nPhone number2: " + phoneNumber2 + " will send");
+                }else {
+                    mText.append("\nPhone number2: " + phoneNumber2 + " won't send");
+                }
+
                 if (TS.batteryPlugged(intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)).equals("UNDEFINED")) {
                     imageView.setImageBitmap(TS.imageOff);
                     send = true;
@@ -170,8 +183,21 @@ public class BattManager extends AppCompatActivity {
     private void getSettings() {
         ///
         mSettings = getSharedPreferences(TS.SETTINGS, Context.MODE_PRIVATE);
-        if (mSettings.contains(TS.PHONE_NUMBER)) {
-            phoneNumber = (mSettings.getString(TS.PHONE_NUMBER, ""));
+        if (mSettings.contains(TS.PHONE_NUMBER1)) {
+            phoneNumber1 = (mSettings.getString(TS.PHONE_NUMBER1, ""));
+
+        }
+        if (mSettings.contains(TS.PHONE_NUMBER1)) {
+            phoneNumber2 = (mSettings.getString(TS.PHONE_NUMBER2, ""));
+
+        }
+        if (mSettings.contains(TS.CHEK1)) {
+            ch1 = (mSettings.getBoolean(TS.CHEK1, false));
+
+        }
+        if (mSettings.contains(TS.CHEK2)) {
+            ch2 = (mSettings.getBoolean(TS.CHEK2, false));
+
         }
         if (mSettings.contains(TS.SMS_TEXT)) {
             smsText = (mSettings.getString(TS.SMS_TEXT, ""));
@@ -179,11 +205,16 @@ public class BattManager extends AppCompatActivity {
         if (mSettings.contains(TS.WAIT)) {
             wait = (mSettings.getString(TS.WAIT, "0"));
         }
-        if (phoneNumber == null) {
-            phoneNumber = "0";
+        if (phoneNumber1 == null) {
+            phoneNumber1 = "0";
 
-        } else if (phoneNumber == "") {
-            phoneNumber = "0";
+        } else if (phoneNumber1 == "") {
+            phoneNumber1 = "0";
+        }if (phoneNumber2 == null) {
+            phoneNumber2 = "0";
+
+        } else if (phoneNumber2 == "") {
+            phoneNumber2 = "0";
         }
         if (smsText == null) {
             smsText = "0";
@@ -214,7 +245,12 @@ if(!send) {
 
     }
 private  void send(){
-    SendSMS.sendSMSMessage(this,phoneNumber,smsText);
+    if(ch1) {
+        SendSMS.sendSMSMessage(this, phoneNumber1, smsText);
+    }
+    if(ch2) {
+        SendSMS.sendSMSMessage(this, phoneNumber2, smsText);
+    }
 
 }
     private class UpdateTimeTask extends TimerTask {

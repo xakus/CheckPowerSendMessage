@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">CheckPowerSendMessage</string>
     <string name="Light">Light</string>
-    <string name="PhoneTXT">PhoneNumber:</string>
+    <string name="PhoneTXT1">PhoneNumber1:</string>
+    <string name="PhoneTXT2">PhoneNumber2:</string>
     <string name="SMSTXT">SMS Text</string>
     <string name="Settings">Settings</string>
     <string name="About">About</string>

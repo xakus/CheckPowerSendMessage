@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.xakus.checkpowersendmessage.R;
@@ -20,7 +21,10 @@ import com.example.xakus.checkpowersendmessage.R;
 public class Settings extends AppCompatActivity {
     private SharedPreferences mSettings;
     private int mCounter;
-    private TextView phoneNumber;
+    private TextView phoneNumber1;
+    private TextView phoneNumber2;
+    private CheckBox  chekB1;
+    private CheckBox  chekB2;
     private TextView smsText;
     private TextView waitText;
     public void onCreate(Bundle savedInstanceState){
@@ -29,12 +33,23 @@ public class Settings extends AppCompatActivity {
         setContentView(R.layout.settings);
 
         mSettings = getSharedPreferences(TS.SETTINGS, Context.MODE_PRIVATE);
-        phoneNumber = (TextView) findViewById(R.id.editTextPhoneNumber);
+        phoneNumber1 = (TextView) findViewById(R.id.Phone1);
+        phoneNumber2 = (TextView) findViewById(R.id.Phone2);
+        chekB1=(CheckBox) findViewById(R.id.ch1);
+        chekB2=(CheckBox) findViewById(R.id.ch2);
         smsText = (TextView) findViewById(R.id.editTextSMSText);
         waitText = (TextView) findViewById(R.id.editTextSeconds);
-      if(mSettings.contains(TS.PHONE_NUMBER)){
-          phoneNumber.setText(mSettings.getString(TS.PHONE_NUMBER,"0"));
+      if(mSettings.contains(TS.PHONE_NUMBER1)){
+          phoneNumber1.setText(mSettings.getString(TS.PHONE_NUMBER1,"0"));
       }
+        if(mSettings.contains(TS.CHEK1)){
+            chekB1.setChecked(mSettings.getBoolean(TS.CHEK1,false));
+        }     if(mSettings.contains(TS.CHEK2)){
+            chekB2.setChecked(mSettings.getBoolean(TS.CHEK2,false));
+        }
+        if(mSettings.contains(TS.PHONE_NUMBER2)){
+            phoneNumber2.setText(mSettings.getString(TS.PHONE_NUMBER2,"0"));
+        }
         if(mSettings.contains(TS.SMS_TEXT)){
             smsText.setText(mSettings.getString(TS.SMS_TEXT,""));
         }
@@ -46,12 +61,22 @@ public class Settings extends AppCompatActivity {
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     public void  okClick(View view){
 
-        phoneNumber = (TextView) findViewById(R.id.editTextPhoneNumber);
+        phoneNumber1 = (TextView) findViewById(R.id.Phone1);
+        phoneNumber2 = (TextView) findViewById(R.id.Phone2);
+
+        chekB1=(CheckBox) findViewById(R.id.ch1) ;
+        chekB2=(CheckBox) findViewById(R.id.ch2) ;
+
         smsText = (TextView) findViewById(R.id.editTextSMSText);
         waitText = (TextView) findViewById(R.id.editTextSeconds);
 
         SharedPreferences.Editor editor = mSettings.edit();
-        editor.putString(TS.PHONE_NUMBER, phoneNumber.getText().toString());
+        editor.putString(TS.PHONE_NUMBER1, phoneNumber1.getText().toString());
+        editor.putString(TS.PHONE_NUMBER2, phoneNumber2.getText().toString());
+
+        editor.putBoolean(TS.CHEK1,chekB1.isChecked());
+        editor.putBoolean(TS.CHEK2,chekB2.isChecked());
+
         editor.putString(TS.SMS_TEXT, smsText.getText().toString());
         editor.putString(TS.WAIT, waitText.getText().toString());
         editor.apply();
