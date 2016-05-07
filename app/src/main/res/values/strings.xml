@@ -3,7 +3,8 @@
     <string name="Light">Light</string>
     <string name="PhoneTXT1">PhoneNumber1:</string>
     <string name="PhoneTXT2">PhoneNumber2:</string>
-    <string name="SMSTXT">SMS Text</string>
+    <string name="SMSTXT1">SMS text off light</string>
+    <string name="SMSTXT2">SMS text on  light</string>
     <string name="Settings">Settings</string>
     <string name="About">About</string>
     <string name="P_name">Salmanov Murad</string>

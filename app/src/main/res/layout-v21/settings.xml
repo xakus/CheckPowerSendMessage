@@ -325,7 +325,7 @@
                 android:singleLine="true"
                 android:gravity="left|top"
                 android:textStyle="bold|normal"
-                android:text="Эквер хтана"
+                android:text="Эквер хтана."
                 android:layout_marginLeft="5dp"
                 android:layout_weight="9" />
         </LinearLayout>

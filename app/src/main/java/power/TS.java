@@ -20,8 +20,11 @@ public class TS {
     public  static final String PHONE_NUMBER2="phonenumber2";
     public static final String CHEK1="CH1";
     public static final String CHEK2="CH2";
+    public static final String CHEK11="CH11";
+    public static final String CHEK22="CH22";
     public  static final String WAIT="wait";
-    public  static final String SMS_TEXT="smstext";
+    public  static final String SMS_TEXT1="smstext1";
+    public  static final String SMS_TEXT2="smstext2";
     public  static final String SETTINGS="settings";
     public static Bitmap imageOn=null;
     public static Bitmap imageOff=null;
